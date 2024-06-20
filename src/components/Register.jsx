@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Serverport from "./Serverport";
+import BaseURL from "./BaseURL";
 
 export default function Register() {
 
@@ -13,7 +13,7 @@ export default function Register() {
 
     const handleSubmit = async () => {
         try {
-            const response = await axios.post(`${Serverport()}/api/users/register`, {
+            const response = await axios.post(`${BaseURL()}/api/users/register`, {
                 username, 
                 email, 
                 password

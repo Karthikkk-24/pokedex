@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Serverport from "./Serverport";
+import BaseURL from "./BaseURL";
 
 export default function Login() {
 
@@ -12,7 +12,7 @@ export default function Login() {
 
     const handleSubmit = async () => {
         try {
-            const response = await axios.post(`${Serverport()}/api/users/login`, {
+            const response = await axios.post(`${BaseURL()}/api/users/login`, {
                 email, 
                 password
             });
