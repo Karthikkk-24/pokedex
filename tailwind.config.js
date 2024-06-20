@@ -6,7 +6,11 @@ export default {
     ],
     theme: {
         extend: {
-            
+            colors: {
+                primary: '#e94848',
+                secondary: '#4d4c4c',
+                tertiary: '#1eb3c8'
+            }
         },
     },
     plugins: [],
