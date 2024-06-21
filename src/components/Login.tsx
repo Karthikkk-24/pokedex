@@ -52,7 +52,6 @@ export default function Login() {
                 </div>
                 <div className="flex w-full h-auto flex-col items-center justify-center gap-5">
                     <button onClick={handleSubmit} className="bg-primary h-auto w-auto uppercase px-5 py-3 text-white rounded-lg font-semibold hover:scale-110 transition-all">Login</button>
-                    <ShinyButton />
                     <Link to="/register">Don`t have an account? Sign Up</Link>
                 </div>
             </div>
