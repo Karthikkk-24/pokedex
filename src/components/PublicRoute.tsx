@@ -8,10 +8,10 @@ const PublicRoute = () => {
     }, []);
 
     function checkLogin() {
-        if (localStorage.getItem('token')) {
+        if (sessionStorage.getItem('token')) {
             // window.location.href = '/dashboard';
         } else {
-            localStorage.clear();
+            sessionStorage.clear();
             sessionStorage.clear();
             window.location.href = '/login';
         }

@@ -19,11 +19,11 @@ export default function Login() {
 
             console.log(response.data);
             if (response.status === 200) {
-                localStorage.clear();
+                sessionStorage.clear();
                 console.log(response.data);
-                localStorage.setItem('token', response.data.token);
-                localStorage.setItem('user', response.data.user.username);
-                localStorage.setItem('user_id', response.data.user.uniqueId);
+                sessionStorage.setItem('token', response.data.token);
+                sessionStorage.setItem('user', response.data.user.username);
+                sessionStorage.setItem('user_id', response.data.user.uniqueId);
                 navigate('/dashboard');
             }
 
@@ -33,7 +33,7 @@ export default function Login() {
     }
 
     return (
-        <div className="w-screen h-screen flex justify-center items-center overflow-hidden bg-background">
+        <div className="w-screen h-screen bg-primary flex justify-center items-center overflow-hidden bg-background">
             <div className="h-auto w-[30rem] flex flex-col items-center gap-6 justify-center shadow-xl rounded-2xl p-7">
                 <h2 className="text-2xl font-semibold text-center uppercase">Login</h2>
                 <div className="flex flex-col gap-2 items-start justify-start w-full h-auto">
