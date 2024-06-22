@@ -1,13 +1,27 @@
-export default function PokeCard() {
+import PropTypes from 'prop-types';
+
+export default function PokeCard({
+    name,
+    location,
+}: {
+    name: string;
+    location: string;
+}) {
     return (
-        <div className="h-40 w-40 aspect-square rounded-2xl overflow-hidden relative border-2 border-slate-100 shadow-2xl">
-            <img
-                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
-                alt=""
-            />
-            <div className="absolute bottom-0 right-0 w-full h-20 bg-slate-900">
-                Pokemon Name
+        <div className='flex flex-col items-center justify-center gap-5'>
+            <div className="h-52 w-52 aspect-square rounded-xl overflow-hidden relative p-6 border-2 border-slate-100 bg-green-100">
+                <img
+                    src={location} alt={name}
+                />
             </div>
+            <h4 className="font-semibold text-xl uppercase">
+                {name}
+            </h4>
         </div>
     );
 }
+
+PokeCard.propTypes = {
+    name: PropTypes.string,
+    location: PropTypes.string,
+};
