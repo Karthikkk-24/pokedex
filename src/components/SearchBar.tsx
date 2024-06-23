@@ -1,4 +1,30 @@
+import React, { useState } from 'react';
+
 export default function SearchBar() {
+    const pokemonTypes = [
+        'Normal',
+        'Fire',
+        'Water',
+        'Electric',
+        'Grass',
+        'Ice',
+        'Fighting',
+        'Poison',
+        'Ground',
+        'Flying',
+        'Psychic',
+        'Bug',
+        'Rock',
+        'Ghost',
+        'Dragon',
+        'Dark',
+        'Steel',
+        'Fairy',
+    ];
+
+    const [search, setSearch] = useState('');
+    const [searchModal, setSearchModal] = useState(false);
+
     return (
         <div className="w-[60%] h-auto flex items-center justify-center border-2 border-slate-200 rounded-2xl">
             <button
@@ -30,6 +56,7 @@ export default function SearchBar() {
             <button
                 type="button"
                 className="w-16 h-full flex items-center justify-center cursor-pointer"
+                onClick={() => setSearchModal(true)}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -55,6 +82,47 @@ export default function SearchBar() {
                     <path d="M19 18l1 0" />
                 </svg>
             </button>
+
+            {searchModal && (
+                <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 flex flex-col items-center backdrop-blur-sm justify-center h-full w-full">
+                    <div className="w-[60%] h-[60%] bg-white flex flex-col items-center justify-center gap-5 rounded-3xl shadow-2xl border-2 border-slate-200">
+                        <div className="h-16 w-full flex flex-col items-end border-slate-200 border-b-2 justify-center" onClick={() => setSearchModal(false)}>
+                            <span className='hover:scale-110 transition-all cursor-pointer h-full w-32 flex flex-col items-end justify-center px-6'>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    className="icon icon-tabler icons-tabler-outline icon-tabler-x"
+                                >
+                                    <path
+                                        stroke="none"
+                                        d="M0 0h24v24H0z"
+                                        fill="none"
+                                    />
+                                    <path d="M18 6l-12 12" />
+                                    <path d="M6 6l12 12" />
+                                </svg>
+                            </span>
+                        </div>
+                        <div className=" aspect-square rounded-2xl h-full w-full grid grid-cols-5 gap-5 p-8">
+                            {pokemonTypes.map((type) => (
+                                <div
+                                    key={type}
+                                    className="h-16 w-auto px-2 rounded-xl border-2 border-slate-50 flex items-center justify-center text-center"
+                                >
+                                    {type}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
