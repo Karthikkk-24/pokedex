@@ -826,6 +826,7 @@ export default function Dashboard() {
                         return (
                             <PokeCard
                                 key={key}
+                                types={['grass', 'poison']}
                                 number={Number(key)}
                                 name={name}
                                 location={`/pokemons/${imageName}.png`}
