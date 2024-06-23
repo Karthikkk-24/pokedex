@@ -10,7 +10,7 @@ export default function PokeCard({
     number: number;
 }) {
     return (
-        <div className="flex flex-col items-center justify-center gap-5">
+        <div className="flex flex-col items-center justify-center gap-5 cursor-pointer hover:scale-105 transition-all">
             <div className="h-52 w-52 aspect-square rounded-xl overflow-hidden relative p-6 border-2 border-slate-50 bg-green-50">
                 <img src={location} alt={name} />
             </div>

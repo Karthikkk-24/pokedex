@@ -2,7 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-    --primary: #3498db; /* Example color */
-    --x: 100%;
+*::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+
+html {
+    scroll-behavior: smooth;
 }

@@ -816,7 +816,7 @@ export default function Dashboard() {
             <div className="w-[60%] h-full overflow-y-auto flex flex-col gap-10 items-center justify-start">
                 <Heading title="PokeDex" />
                 <SearchBar />
-                <div className="w-full h-auto grid grid-cols-5 gap-8 p-8">
+                <div className="w-full h-auto grid grid-cols-5 gap-8 p-12 border-2 border-slate-700 rounded-2xl">
                     {Object.keys(pokedex).map((key) => {
                         const name = pokedex[key];
                         const imageName = name
