@@ -1652,7 +1652,6 @@ export default function PokeList() {
     }
 
     function types(types: number) {
-        console.log();
         return pokemonTypes[types];
     }
 
@@ -1676,7 +1675,6 @@ export default function PokeList() {
                       );
                   })
                 : selectedPokemons.map((key) => {
-                      console.log(key);
                       const name = pokedex[key];
                       const imageName = name
                           .toLowerCase()
