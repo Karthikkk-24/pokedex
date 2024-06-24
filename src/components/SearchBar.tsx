@@ -3,80 +3,62 @@ import { useSearch } from './SearchContext';
 
 export default function SearchBar() {
     const pokemonTypes = [
-        'Normal',
-        'Fire',
-        'Water',
-        'Electric',
-        'Grass',
-        'Ice',
-        'Fighting',
-        'Poison',
-        'Ground',
-        'Flying',
-        'Psychic',
-        'Bug',
-        'Rock',
-        'Ghost',
-        'Dragon',
-        'Dark',
-        'Steel',
-        'Fairy',
+        'Normal', 'Fire', 'Water', 'Electric', 'Grass', 'Ice', 'Fighting', 'Poison', 'Ground', 'Flying', 
+        'Psychic', 'Bug', 'Rock', 'Ghost', 'Dragon', 'Dark', 'Steel', 'Fairy'
     ];
 
     const pokemonTypesImage = [
-        '/pokemon-types/normal.png',
-        '/pokemon-types/fire.png',
-        '/pokemon-types/water.png',
-        '/pokemon-types/electric.png',
-        '/pokemon-types/grass.png',
-        '/pokemon-types/ice.png',
-        '/pokemon-types/fighting.png',
-        '/pokemon-types/poison.png',
-        '/pokemon-types/ground.png',
-        '/pokemon-types/flying.png',
-        '/pokemon-types/psychic.png',
-        '/pokemon-types/bug.png',
-        '/pokemon-types/rock.png',
-        '/pokemon-types/ghost.png',
-        '/pokemon-types/dragon.png',
-        '/pokemon-types/dark.png',
-        '/pokemon-types/steel.png',
-        '/pokemon-types/fairy.png',
+        '/pokemon-types/normal.png', '/pokemon-types/fire.png', '/pokemon-types/water.png', 
+        '/pokemon-types/electric.png', '/pokemon-types/grass.png', '/pokemon-types/ice.png', 
+        '/pokemon-types/fighting.png', '/pokemon-types/poison.png', '/pokemon-types/ground.png', 
+        '/pokemon-types/flying.png', '/pokemon-types/psychic.png', '/pokemon-types/bug.png', 
+        '/pokemon-types/rock.png', '/pokemon-types/ghost.png', '/pokemon-types/dragon.png', 
+        '/pokemon-types/dark.png', '/pokemon-types/steel.png', '/pokemon-types/fairy.png'
     ];
 
     const handleTypeSelect = (item: string) => {
         if (sessionStorage.getItem('type')) {
             if (sessionStorage.getItem('type') === item) {
                 sessionStorage.removeItem('type');
+                setSelectedType(null);
+                setIsSearched(false);
             } else {
                 sessionStorage.setItem('type', item);
+                setSelectedType(item);
+                setIsSearched(true);
             }
         } else {
             sessionStorage.setItem('type', item);
+            setSelectedType(item);
+            setIsSearched(true);
         }
         setSearchModal(false);
-        checkIfSearched(); // Call the checkIfSearched function after setting the type
     };
 
     const [search, setSearch] = useState('');
     const [searchModal, setSearchModal] = useState(false);
-    const { isSearched, setIsSearched } = useSearch();
+    const { isSearched, setIsSearched, setSelectedType } = useSearch();
 
     useEffect(() => {
         checkIfSearched();
     }, [setSearchModal, searchModal]);
 
+    const currentSearchedType = sessionStorage.getItem('type');
+
     function checkIfSearched() {
         if (sessionStorage.getItem('type')) {
             setIsSearched(true);
+            setSelectedType(sessionStorage.getItem('type'));
         } else {
             setIsSearched(false);
+            setSelectedType(null);
         }
     }
 
     function clearFilters() {
         sessionStorage.removeItem('type');
-        setIsSearched(false); // Reset the isSearched state
+        setIsSearched(false);
+        setSelectedType(null);
     }
 
     return (

@@ -1617,17 +1617,16 @@ const pokemonTypes: PokedexTypes = {
 };
 
 export default function PokeList() {
-    const { isSearched } = useSearch();
-    const [selectedPokemonType, setSelectedPokemonType] = useState('');
     const [selectedPokemons, setSelectedPokemons] = useState<number[]>([]);
+    const { isSearched, selectedType } = useSearch();
 
     useEffect(() => {
-        if (isSearched) {
-            getSelectedPokemonType();
+        if (selectedType) {
+            setSelectedPokemons(getPokemonByType(selectedType));
         } else {
             setSelectedPokemons([]);
         }
-    }, [isSearched]);
+    }, [selectedType]);
 
     function getPokemonByType(type: string): number[] {
         const result: number[] = [];
@@ -1636,16 +1635,7 @@ export default function PokeList() {
                 result.push(Number(index));
             }
         }
-        setSelectedPokemons(result);
         return result;
-    }
-
-    function getSelectedPokemonType() {
-        const type = sessionStorage.getItem('type');
-        if (type) {
-            setSelectedPokemonType(type);
-            getPokemonByType(type);
-        }
     }
 
     function types(types: number) {
