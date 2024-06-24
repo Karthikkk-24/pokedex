@@ -22,6 +22,40 @@ export default function SearchBar() {
         'Fairy',
     ];
 
+    const pokemonTypesImage = [
+        '/pokemon-types/normal.png',
+        '/pokemon-types/fire.png',
+        '/pokemon-types/water.png',
+        '/pokemon-types/electric.png',
+        '/pokemon-types/grass.png',
+        '/pokemon-types/ice.png',
+        '/pokemon-types/fighting.png',
+        '/pokemon-types/poison.png',
+        '/pokemon-types/ground.png',
+        '/pokemon-types/flying.png',
+        '/pokemon-types/psychic.png',
+        '/pokemon-types/bug.png',
+        '/pokemon-types/rock.png',
+        '/pokemon-types/ghost.png',
+        '/pokemon-types/dragon.png',
+        '/pokemon-types/dark.png',
+        '/pokemon-types/steel.png',
+        '/pokemon-types/fairy.png',
+    ];
+
+    const handleTypeSelect = (item: string) => {
+        if (sessionStorage.getItem('type')) {
+            if (sessionStorage.getItem('type') === item) {
+                sessionStorage.removeItem('type');
+            } else {
+                sessionStorage.setItem('type', item);
+            }
+        } else {
+            sessionStorage.setItem('type', item);
+        }
+        setSearchModal(false);
+    }
+
     const [search, setSearch] = useState('');
     const [searchModal, setSearchModal] = useState(false);
 
@@ -86,8 +120,14 @@ export default function SearchBar() {
             {searchModal && (
                 <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 flex flex-col items-center backdrop-blur-sm justify-center h-full w-full">
                     <div className="w-[60%] h-[60%] bg-white flex flex-col items-center justify-center gap-5 rounded-3xl shadow-2xl border-2 border-slate-200">
-                        <div className="h-16 w-full flex flex-col items-end border-slate-200 border-b-2 justify-center" onClick={() => setSearchModal(false)}>
-                            <span className='hover:scale-110 transition-all cursor-pointer h-full w-32 flex flex-col items-end justify-center px-6'>
+                        <div
+                            className="h-16 w-full flex items-center border-slate-200 border-b-2 justify-between px-6"
+                            onClick={() => setSearchModal(false)}
+                        >
+                            <h3 className="m-0 text-xl font-semibold ">
+                                Search By Types
+                            </h3>
+                            <span className="hover:scale-110 transition-all cursor-pointer h-full w-32 flex flex-col items-end justify-center">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
@@ -110,13 +150,23 @@ export default function SearchBar() {
                                 </svg>
                             </span>
                         </div>
+                        {/* <div className="flex">
+                            {pokemonTypesImage.map((type) => (
+                                <img src={type} className="h-12 w-12" alt="" />
+                            ))}
+                        </div> */}
                         <div className=" aspect-square rounded-2xl h-full w-full grid grid-cols-5 gap-5 p-8">
-                            {pokemonTypes.map((type) => (
+                            {pokemonTypes.map((type, index) => (
                                 <div
                                     key={type}
-                                    className="h-16 w-auto px-2 rounded-xl border-2 border-slate-50 flex items-center justify-center text-center"
+                                    className="h-16 w-auto px-2 rounded-xl border-2 border-slate-50 flex items-center gap-2 justify-center text-center hover:scale-110 transition-all cursor-pointer" onClick={() => handleTypeSelect(type)}
                                 >
-                                    {type}
+                                    <img
+                                        className="w-10 h-10"
+                                        src={pokemonTypesImage[index]}
+                                        alt=""
+                                    />
+                                    <span>{type}</span>
                                 </div>
                             ))}
                         </div>
