@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PokeCard from './PokeCard';
+import { useSearch } from './SearchContext';
 
 type Pokedex = {
     [key: string]: string;
@@ -1616,22 +1617,17 @@ const pokemonTypes: PokedexTypes = {
 };
 
 export default function PokeList() {
-    useEffect(() => {
-        checkIfSearched();
-        getSelectedPokemonType();
-    }, []);
-
-    const [isSearched, setIsSearched] = useState(false);
+    const { isSearched } = useSearch();
     const [selectedPokemonType, setSelectedPokemonType] = useState('');
     const [selectedPokemons, setSelectedPokemons] = useState<number[]>([]);
 
-    function checkIfSearched() {
-        if (sessionStorage.getItem('type')) {
-            setIsSearched(true);
+    useEffect(() => {
+        if (isSearched) {
+            getSelectedPokemonType();
         } else {
-            setIsSearched(false);
+            setSelectedPokemons([]);
         }
-    }
+    }, [isSearched]);
 
     function getPokemonByType(type: string): number[] {
         const result: number[] = [];
@@ -1645,9 +1641,10 @@ export default function PokeList() {
     }
 
     function getSelectedPokemonType() {
-        if (sessionStorage.getItem('type')) {
-            setSelectedPokemonType(sessionStorage.getItem('type') as string);
-            getPokemonByType(sessionStorage.getItem('type') as string);
+        const type = sessionStorage.getItem('type');
+        if (type) {
+            setSelectedPokemonType(type);
+            getPokemonByType(type);
         }
     }
 

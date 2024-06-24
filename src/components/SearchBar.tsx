@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSearch } from './SearchContext';
 
 export default function SearchBar() {
     const pokemonTypes = [
@@ -54,11 +55,12 @@ export default function SearchBar() {
             sessionStorage.setItem('type', item);
         }
         setSearchModal(false);
+        checkIfSearched(); // Call the checkIfSearched function after setting the type
     };
 
     const [search, setSearch] = useState('');
     const [searchModal, setSearchModal] = useState(false);
-    const [isSearched, setIsSearched] = useState(false);
+    const { isSearched, setIsSearched } = useSearch();
 
     useEffect(() => {
         checkIfSearched();
@@ -74,6 +76,7 @@ export default function SearchBar() {
 
     function clearFilters() {
         sessionStorage.removeItem('type');
+        setIsSearched(false); // Reset the isSearched state
     }
 
     return (
