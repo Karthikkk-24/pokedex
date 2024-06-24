@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function SearchBar() {
     const pokemonTypes = [
@@ -58,6 +58,20 @@ export default function SearchBar() {
 
     const [search, setSearch] = useState('');
     const [searchModal, setSearchModal] = useState(false);
+    const [isSearched, setIsSearched] = useState(false);
+
+    useEffect(() => {
+        checkIfSearched();
+    }, [setSearchModal, searchModal]);
+
+    function checkIfSearched() {
+        if (sessionStorage.getItem('type')) {
+            alert('Type: ' + sessionStorage.getItem('type'));
+            setIsSearched(true);
+        } else {
+            setIsSearched(false);
+        }
+    }
 
     return (
         <div className="w-[60%] h-auto flex items-center justify-center border-2 border-slate-200 rounded-2xl">
@@ -150,11 +164,6 @@ export default function SearchBar() {
                                 </svg>
                             </span>
                         </div>
-                        {/* <div className="flex">
-                            {pokemonTypesImage.map((type) => (
-                                <img src={type} className="h-12 w-12" alt="" />
-                            ))}
-                        </div> */}
                         <div className=" aspect-square rounded-2xl h-full w-full grid grid-cols-5 gap-5 p-8">
                             {pokemonTypes.map((type, index) => (
                                 <div

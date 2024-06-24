@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PokeCard from './PokeCard';
 
 type Pokedex = {
@@ -1616,6 +1616,41 @@ const pokemonTypes: PokedexTypes = {
 };
 
 export default function PokeList() {
+    useEffect(() => {
+        checkIfSearched();
+        getSelectedPokemonType();
+    }, []);
+
+    const [isSearched, setIsSearched] = useState(false);
+    const [selectedPokemonType, setSelectedPokemonType] = useState('');
+    const [selectedPokemons, setSelectedPokemons] = useState<number[]>([]);
+
+    function checkIfSearched() {
+        if (sessionStorage.getItem('type')) {
+            setIsSearched(true);
+        } else {
+            setIsSearched(false);
+        }
+    }
+
+    function getPokemonByType(type: string): number[] {
+        const result: number[] = [];
+        for (const [index, types] of Object.entries(pokemonTypes)) {
+            if (types.includes(type)) {
+                result.push(Number(index));
+            }
+        }
+        setSelectedPokemons(result);
+        return result;
+    }
+
+    function getSelectedPokemonType() {
+        if (sessionStorage.getItem('type')) {
+            setSelectedPokemonType(sessionStorage.getItem('type') as string);
+            getPokemonByType(sessionStorage.getItem('type') as string);
+        }
+    }
+
     function types(types: number) {
         console.log();
         return pokemonTypes[types];
@@ -1623,22 +1658,40 @@ export default function PokeList() {
 
     return (
         <div className="w-full h-auto grid grid-cols-5 gap-8 p-12 border-2 border-slate-700 rounded-2xl">
-            {Object.keys(pokedex).map((key) => {
-                const name = pokedex[key];
-                const imageName = name
-                    .toLowerCase()
-                    .replace(/\s+/g, '-')
-                    .replace(/\./g, '');
-                return (
-                    <PokeCard
-                        key={key}
-                        types={types(Number(key))}
-                        number={Number(key)}
-                        name={name}
-                        location={`/pokemons/${imageName}.png`}
-                    />
-                );
-            })}
+            {!isSearched
+                ? Object.keys(pokedex).map((key) => {
+                      const name = pokedex[key];
+                      const imageName = name
+                          .toLowerCase()
+                          .replace(/\s+/g, '-')
+                          .replace(/\./g, '');
+                      return (
+                          <PokeCard
+                              key={key}
+                              types={types(Number(key))}
+                              number={Number(key)}
+                              name={name}
+                              location={`/pokemons/${imageName}.png`}
+                          />
+                      );
+                  })
+                : selectedPokemons.map((key) => {
+                      console.log(key);
+                      const name = pokedex[key];
+                      const imageName = name
+                          .toLowerCase()
+                          .replace(/\s+/g, '-')
+                          .replace(/\./g, '');
+                      return (
+                          <PokeCard
+                              key={key}
+                              types={types(Number(key))}
+                              number={Number(key)}
+                              name={name}
+                              location={`/pokemons/${imageName}.png`}
+                          />
+                      );
+                  })}
         </div>
     );
 }
