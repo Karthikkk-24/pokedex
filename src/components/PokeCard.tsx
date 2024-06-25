@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
 const getTypeColor = (type : string) => {
     switch (type.toLowerCase()) {
@@ -98,8 +99,15 @@ export default function PokeCard({
     number: number;
     types: string[];
 }) {
+
+    const navigate = useNavigate();
+
+    const handlePokeSubmit = () => {
+        navigate(`/pokemon/${name}`);
+    }
+
     return (
-        <div className="flex flex-col items-center justify-center gap-5 cursor-pointer hover:scale-105 transition-all">
+        <div onClick={handlePokeSubmit} className="flex flex-col items-center justify-center gap-5 cursor-pointer hover:scale-105 transition-all">
             <div className={`h-52 w-52 aspect-square rounded-xl overflow-hidden relative p-6 border-2 border-slate-50 ${getBackgroundColor(types[0])}`}>
                 <img src={location} alt={name} />
             </div>

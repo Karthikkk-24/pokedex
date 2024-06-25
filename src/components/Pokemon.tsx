@@ -1,14 +1,14 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
-export default function Pokemon({ title }: { title: string }) {
+const Pokemon: React.FC = () => {
+    const { name } = useParams<{ name: string }>();
+
     return (
         <div className="h-[80vh] w-full rounded-tl-3xl rounded-tr-3xl bg-white relative z-50">
-            {title}
+            <h1>Pokemon: {name}</h1>
         </div>
     );
-}
+};
 
-Pokemon.propTypes = {
-    title: PropTypes.string
-}
+export default Pokemon;

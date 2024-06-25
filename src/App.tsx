@@ -3,6 +3,7 @@ import './App.css';
 import Dashboard from './components/Dashboard';
 import Login from './components/Login';
 import Main from './components/Main';
+import Pokemon from './components/Pokemon';
 import PublicRoute from './components/PublicRoute';
 import Register from './components/Register';
 
@@ -16,6 +17,7 @@ function App() {
                 <Route path="/main" element={<Main />} />
                 <Route path="/" element={<PublicRoute />}>
                     <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path='/pokemon/:name' element={<Pokemon />} />
                 </Route>
             </Routes>
         </Router>
