@@ -1,8 +1,23 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 const Pokemon: React.FC = () => {
     const { name } = useParams<{ name: string }>();
+
+    useEffect(() => {
+        fetchPokemonData();
+    }, []);
+    
+    const fetchPokemonData = async () => {
+        try {
+            const pokemonName = name?.toLowerCase();
+            const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
+            console.log(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <div className="h-screen w-screen flex items-center justify-center flex-col">
