@@ -1,9 +1,15 @@
 import axios from 'axios';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 const Pokemon: React.FC = () => {
     const { name } = useParams<{ name: string }>();
+    const [pokemonName, setPokemonName] = useState<string>('');
+    const [pokeOrder, setPokeOrder] = useState<number>(0);
+    const [pokeTypes, setPokeTypes] = useState<string[]>([]);
+    const [pokemonWeight, setPokemonWeight] = useState<number>(0);
+    const [pokemonHeight, setPokemonHeight] = useState<number>(0);
+    const [pokemonMoveSet, setPokemonMoveSet] = useState<string[]>([]);
 
     useEffect(() => {
         fetchPokemonData();
@@ -14,6 +20,12 @@ const Pokemon: React.FC = () => {
             const pokemonName = name?.toLowerCase();
             const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
             console.log(response.data);
+            setPokeOrder(response.data.order);
+            setPokemonName(response.data.name);
+            setPokeTypes(response.data.types.map((type: any) => type.type.name));
+            setPokemonWeight(response.data.weight);
+            setPokemonHeight(response.data.height);
+            setPokemonMoveSet(response.data.moves.map((move: any) => move.move.name));
         } catch (error) {
             console.log(error);
         }
@@ -32,7 +44,7 @@ const Pokemon: React.FC = () => {
                     </div>
                 </div>
                 <div className="w-1/2 h-full flex flex-col items-start justify-center">
-                    sjdfioushjifopjsopfjpsjfpo
+                    {pokemonName}
                 </div>
             </div>
         </div>
