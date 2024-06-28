@@ -23,6 +23,9 @@ export default {
                         "background-position": "0% 0%",
                     },
                 },
+            }, 
+            backgroundImage: {
+                'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
             },
         },
     },
