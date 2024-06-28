@@ -103,7 +103,7 @@ export default function PokeCard({
     const navigate = useNavigate();
 
     const handlePokeSubmit = () => {
-        navigate(`/pokemon/${name}`);
+        navigate(`/pokemon/${name.toLowerCase()}`);
     }
 
     return (
