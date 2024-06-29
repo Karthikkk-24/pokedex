@@ -97,7 +97,13 @@ const Pokemon: React.FC = () => {
                 <div className="w-1/2 h-full flex flex-col items-start justify-center">
                     <h1 className="text-2xl font-bold">{pokemonName.toUpperCase()}</h1>
                     <p>Order: {pokeOrder}</p>
-                    <p>Types: {pokeTypes.join(', ').toUpperCase()}</p>
+                    <p>Types: 
+                        {
+                            pokeTypes.map((type) => (
+                                <span key={type} className={`px-2 py-1 ml-4 text-sm rounded-md ${getTypeColor(type)}`}>{type.toUpperCase()}</span>
+                            ))
+                        }
+                    </p>
                     <p>Weight: {pokemonWeight} hg</p>
                     <p>Height: {pokemonHeight} dm</p>
                     <p>Moves: {pokemonMoveSet.join(', ')}</p>
